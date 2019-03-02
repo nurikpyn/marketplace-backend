@@ -1,4 +1,4 @@
-package br.com.vfs.marketplacebackend.provider;
+package br.com.vfs.marketplacebackend.config.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,7 +30,7 @@ public class JwtProvider { //TODO para obter os values deve ser um componente ou
     }
 
     public boolean validateJwtToken(String authToken) {
-        Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+        //Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
         //return ...;
         return true; //TODO validar isso depois
     }
