@@ -1,4 +1,4 @@
-package br.com.vfs.marketplacebackend;
+package br.com.vfs.marketplacebackend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
