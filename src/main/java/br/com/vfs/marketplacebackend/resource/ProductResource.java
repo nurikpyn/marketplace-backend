@@ -1,5 +1,6 @@
 package br.com.vfs.marketplacebackend.resource;
 
+import br.com.vfs.marketplacebackend.es.entity.ProductES;
 import br.com.vfs.marketplacebackend.es.service.ProductESServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URLEncoder;
+import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -32,7 +35,17 @@ public class ProductResource {
         }
     }
 
-//    public ResponseEntity<?> getProduct(@PathVariable(name = "name") String name){
-//        return ResponseEntity.ok(Arrays.asList("monitor 1","monitor 2","monitor 3"));
-//    }
+    @GetMapping("/public/list")
+    public ResponseEntity<?> getProducts(
+            @RequestParam(name = "size", defaultValue = "5") int size,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "name") String name){
+        return ResponseEntity.ok(productESService.findProducts(page,size, name));
+    }
+
+    @PostMapping("public/add")
+    public ResponseEntity add(@RequestBody String name){
+        final ProductES productES = productESService.add(ProductES.builder().id(UUID.randomUUID().toString()).name(name).build());
+        return ResponseEntity.created(URI.create(String.format("/products/%s",productES.getId()))).body(productES);
+    }
 }

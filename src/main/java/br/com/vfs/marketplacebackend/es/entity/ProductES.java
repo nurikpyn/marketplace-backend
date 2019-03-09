@@ -14,7 +14,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Document(indexName = "marketplace", type = "products")
 public class ProductES {
     @Id
-    private Long id;
+    private String id;
 
     private String name;
 }
