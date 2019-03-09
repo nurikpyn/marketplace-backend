@@ -40,7 +40,14 @@ public class ProductResource {
             @RequestParam(name = "size", defaultValue = "5") int size,
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "name") String name){
-        return ResponseEntity.ok(productESService.findProducts(page,size, name));
+        try {
+            String nameEncode = URLEncoder.encode(name, "UTF-8");
+            return ResponseEntity.ok(productESService.findProducts(page, size, nameEncode));
+        } catch (UnsupportedEncodingException e) {
+
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("public/add")
