@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,5 +34,9 @@ public class ProductESServiceImpl {
 
     public ProductES add(ProductES build) {
         return productsESRepository.save(build);
+    }
+
+    public ProductES findProductDetail(String uuid) {
+        return productsESRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
     }
 }

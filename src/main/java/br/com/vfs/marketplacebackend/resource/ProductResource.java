@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -44,11 +45,20 @@ public class ProductResource {
             String nameEncode = URLEncoder.encode(name, "UTF-8");
             return ResponseEntity.ok(productESService.findProducts(page, size, nameEncode));
         } catch (UnsupportedEncodingException e) {
-
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/public/{uuid}")
+    public ResponseEntity<?> getProductDetails(@PathVariable(name = "uuid") String uuid){
+        try {
+            return ResponseEntity.ok(productESService.findProductDetail(uuid));
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @PostMapping("public/add")
     public ResponseEntity add(@RequestBody String name){

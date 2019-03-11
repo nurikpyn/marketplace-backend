@@ -1,0 +1,49 @@
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="dto.soap.marketplacebackend.vfs.com.br"
+        targetNamespace="dto.soap.marketplacebackend.vfs.com.br"
+        elementFormDefault="qualified">
+
+    <xs:element name="ProductRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="product" type="tns:product"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ProductResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:status"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="product">
+        <xs:sequence>
+            <xs:element name="identificador" type="xs:string"/>
+            <xs:element name="fornecedor" type="xs:string"/>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="descricao" type="xs:string"/>
+            <xs:element name="valor" type="xs:decimal"/>
+            <xs:element name="departamento" type="tns:departamento"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="departamento">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="MONITOR"/>
+            <xs:enumeration value="COMPUTADOR"/>
+            <xs:enumeration value="PERIFERICOS"/>
+            <xs:enumeration value="OUTROS"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCESSO"/>
+            <xs:enumeration value="ERROR"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
