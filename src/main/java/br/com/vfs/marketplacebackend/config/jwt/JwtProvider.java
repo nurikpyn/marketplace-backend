@@ -1,14 +1,22 @@
 package br.com.vfs.marketplacebackend.config.jwt;
 
 import br.com.vfs.marketplacebackend.dto.UserPrinciple;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Component
 public class JwtProvider {
@@ -28,8 +36,11 @@ public class JwtProvider {
     public String generateJwtToken(Authentication authentication) {
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
+        final Set<String> permissoes = authentication.getAuthorities().stream().map(
+                GrantedAuthority::getAuthority).collect(Collectors.toSet());
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
+                .addClaims(Collections.singletonMap("role", permissoes))
                 .setIssuedAt(new Date()) //TODO trocar para biblioteca mais nova
                 .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

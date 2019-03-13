@@ -40,6 +40,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
         try {
             String jwt = getTokenJwtFromHeader(httpServletRequest);
             if (jwt != null && jwtProvider.validateJwtToken(jwt)) {
+                //TODO avaliar a implementação para usar as roles armazenadas no token
                 String username = jwtProvider.getUserNameFromJwtToken(jwt);
 
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
