@@ -1,17 +1,21 @@
 package br.com.vfs.marketplacebackend.resource;
 
-import br.com.vfs.marketplacebackend.es.entity.ProductES;
 import br.com.vfs.marketplacebackend.es.service.ProductESServiceImpl;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.util.UUID;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -62,7 +66,8 @@ public class ProductResource {
 
     @PostMapping("public/add")
     public ResponseEntity add(@RequestBody String name){
-        final ProductES productES = productESService.add(ProductES.builder().id(UUID.randomUUID().toString()).name(name).build());
-        return ResponseEntity.created(URI.create(String.format("/products/%s",productES.getId()))).body(productES);
+//        final ProductES productES = productESService.add(ProductES.builder().id(UUID.randomUUID().toString()).name(name).build());
+//        return ResponseEntity.created(URI.create(String.format("/products/%s",productES.getId()))).body(productES);
+        throw new NotImplementedException();
     }
 }

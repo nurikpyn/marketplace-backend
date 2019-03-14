@@ -50,6 +50,14 @@ public class ProductTypeEntity {
                     .orElseThrow(() -> new EnumConstantNotPresentException(ProductType.class, code.toString()));
         }
 
+        public static ProductTypeEntity createEntity(String type) {
+            final ProductType productType = Arrays.stream(ProductType.values())
+                    .filter(t -> t.name() == type)
+                    .findFirst()
+                    .orElseThrow(() -> new EnumConstantNotPresentException(ProductType.class, type));
+            return  ProductTypeEntity.builder().id(productType.getCode()).build();
+        }
+
         public Integer getCode() {
             return code;
         }
