@@ -4,45 +4,46 @@
         targetNamespace="dto.soap.marketplacebackend.vfs.com.br"
         elementFormDefault="qualified">
 
-    <xs:element name="ProductRequest">
+    <xs:element name="ProductWSRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="product" type="tns:product"/>
+                <xs:element name="productsWS" type="tns:productWS" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="ProductResponse">
+    <xs:element name="ProductWSResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="status" type="tns:status"/>
+                <xs:element name="status" type="tns:statusWS"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="product">
+    <xs:complexType name="productWS">
         <xs:sequence>
-            <xs:element name="identificador" type="xs:string"/>
-            <xs:element name="fornecedor" type="xs:string"/>
-            <xs:element name="nome" type="xs:string"/>
-            <xs:element name="descricao" type="xs:string"/>
-            <xs:element name="valor" type="xs:decimal"/>
-            <xs:element name="departamento" type="tns:departamento"/>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="auth_provider" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="value" type="xs:decimal"/>
+            <xs:element name="type" type="tns:typeWS"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="departamento">
+    <xs:simpleType name="typeWS">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="NOTEBOOK"/>
+            <xs:enumeration value="DESKTOP"/>
             <xs:enumeration value="MONITOR"/>
-            <xs:enumeration value="COMPUTADOR"/>
-            <xs:enumeration value="PERIFERICOS"/>
-            <xs:enumeration value="OUTROS"/>
+            <xs:enumeration value="COMPONENTE"/>
+            <xs:enumeration value="PERIFERICO"/>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="status">
+    <xs:simpleType name="statusWS">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="SUCESSO"/>
+            <xs:enumeration value="SUCCESS"/>
             <xs:enumeration value="ERROR"/>
         </xs:restriction>
     </xs:simpleType>

@@ -2,7 +2,7 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.7 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2019.03.10 às 10:22:32 PM BRT 
+// Gerado em: 2019.03.14 às 03:33:56 PM BRT 
 //
 
 
@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="status" type="{dto.soap.marketplacebackend.vfs.com.br}status"/>
+ *         &lt;element name="status" type="{dto.soap.marketplacebackend.vfs.com.br}statusWS"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,21 +38,21 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "status"
 })
-@XmlRootElement(name = "ProductResponse")
-public class ProductResponse {
+@XmlRootElement(name = "ProductWSResponse")
+public class ProductWSResponse {
 
     @XmlElement(required = true)
-    protected Status status;
+    protected StatusWS status;
 
     /**
      * Obtém o valor da propriedade status.
      * 
      * @return
      *     possible object is
-     *     {@link Status }
+     *     {@link StatusWS }
      *     
      */
-    public Status getStatus() {
+    public StatusWS getStatus() {
         return status;
     }
 
@@ -61,10 +61,10 @@ public class ProductResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link Status }
+     *     {@link StatusWS }
      *     
      */
-    public void setStatus(Status value) {
+    public void setStatus(StatusWS value) {
         this.status = value;
     }
 

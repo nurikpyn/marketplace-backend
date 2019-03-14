@@ -1,8 +1,8 @@
 package br.com.vfs.marketplacebackend.soap.endpoint;
 
-import br.com.vfs.marketplacebackend.soap.dto.ProductRequest;
-import br.com.vfs.marketplacebackend.soap.dto.ProductResponse;
-import br.com.vfs.marketplacebackend.soap.dto.Status;
+import br.com.vfs.marketplacebackend.soap.dto.ProductWSRequest;
+import br.com.vfs.marketplacebackend.soap.dto.ProductWSResponse;
+import br.com.vfs.marketplacebackend.soap.dto.StatusWS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -20,11 +20,14 @@ public class ProductEndpoint {
             namespace = "dto.soap.marketplacebackend.vfs.com.br",
             localPart = "ProductRequest")
     @ResponsePayload
-    public ProductResponse addProduct(@RequestPayload ProductRequest request) {
+    public ProductWSResponse addProduct(@RequestPayload ProductWSRequest request) {
 
-        LOGGER.info("chegou o produto"+ request.getProduct().getNome());
-        ProductResponse response = new ProductResponse();
-        response.setStatus(Status.SUCESSO);
+        request.getProductsWS().stream().forEach(p -> {
+            p.getId();
+        });
+        LOGGER.info("chegou o produto"+ request.getProductsWS());
+        ProductWSResponse response = new ProductWSResponse();
+        response.setStatus(StatusWS.SUCCESS);
         return response;
     }
 }

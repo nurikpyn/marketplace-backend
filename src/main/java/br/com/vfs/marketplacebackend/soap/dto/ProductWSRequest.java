@@ -2,12 +2,14 @@
 // Este arquivo foi gerado pela Arquitetura JavaTM para Implementação de Referência (JAXB) de Bind XML, v2.2.7 
 // Consulte <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Todas as modificações neste arquivo serão perdidas após a recompilação do esquema de origem. 
-// Gerado em: 2019.03.10 às 10:22:32 PM BRT 
+// Gerado em: 2019.03.14 às 03:33:56 PM BRT 
 //
 
 
 package br.com.vfs.marketplacebackend.soap.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="product" type="{dto.soap.marketplacebackend.vfs.com.br}product"/>
+ *         &lt;element name="productsWS" type="{dto.soap.marketplacebackend.vfs.com.br}productWS" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +38,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "product"
+    "productsWS"
 })
-@XmlRootElement(name = "ProductRequest")
-public class ProductRequest {
+@XmlRootElement(name = "ProductWSRequest")
+public class ProductWSRequest {
 
     @XmlElement(required = true)
-    protected Product product;
+    protected List<ProductWS> productsWS;
 
     /**
-     * Obtém o valor da propriedade product.
+     * Gets the value of the productsWS property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Product }
-     *     
-     */
-    public Product getProduct() {
-        return product;
-    }
-
-    /**
-     * Define o valor da propriedade product.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the productsWS property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Product }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getProductsWS().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ProductWS }
+     * 
+     * 
      */
-    public void setProduct(Product value) {
-        this.product = value;
+    public List<ProductWS> getProductsWS() {
+        if (productsWS == null) {
+            productsWS = new ArrayList<ProductWS>();
+        }
+        return this.productsWS;
     }
 
 }
