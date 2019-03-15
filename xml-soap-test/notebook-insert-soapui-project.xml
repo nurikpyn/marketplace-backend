@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dto="dto.soap.marketplacebackend.vfs.com.br">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <dto:ProductWSRequest>
+         <!--1 or more repetitions:-->
+         <dto:productsWS>
+            <dto:id>12asd671</dto:id>
+            <dto:auth_provider>SAMSUNG</dto:auth_provider>
+            <dto:name>NOTEBOOK SAMSUMG I3</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>2000.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+         
+       <dto:productsWS>
+            <dto:id>12asd671</dto:id>
+            <dto:auth_provider>SAMSUNG</dto:auth_provider>
+            <dto:name>NOTEBOOK SAMSUMG I5</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>3000.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+
+       <dto:productsWS>
+            <dto:id>12ji54ok3</dto:id>
+            <dto:auth_provider>SAMSUNG</dto:auth_provider>
+            <dto:name>NOTEBOOK SAMSUMG I7</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>4000.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+
+         <dto:productsWS>
+            <dto:id>32hu23hu4</dto:id>
+            <dto:auth_provider>DELL</dto:auth_provider>
+            <dto:name>NOTEBOOK DELL I3</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>2200.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+         
+       <dto:productsWS>
+            <dto:id>32husd34</dto:id>
+            <dto:auth_provider>DELL</dto:auth_provider>
+            <dto:name>NOTEBOOK DELL I5</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>2900.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+
+       <dto:productsWS>
+            <dto:id>43husd783</dto:id>
+            <dto:auth_provider>DELL</dto:auth_provider>
+            <dto:name>NOTEBOOK DELL I7</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>3999.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+
+         <dto:productsWS>
+            <dto:id>km78654</dto:id>
+            <dto:auth_provider>LG</dto:auth_provider>
+            <dto:name>NOTEBOOK LG I3</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>1900.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+       <dto:productsWS>
+            <dto:id>jhn2348j</dto:id>
+            <dto:auth_provider>LG</dto:auth_provider>
+            <dto:name>NOTEBOOK LG I5</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>3200.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+
+       <dto:productsWS>
+            <dto:id>asbh123</dto:id>
+            <dto:auth_provider>LG</dto:auth_provider>
+            <dto:name>NOTEBOOK LG I7</dto:name>
+            <dto:description>O primeiro notebook Dell com a 8ª Geração de Processadores Intel® Core™ no Brasil oferece uma experiência visual excepcional, acabamento atraente e novas tecnologias projetadas para aumentar sua diversão onde quer que você esteja.</dto:description>
+            <dto:value>4999.00</dto:value>
+            <dto:type>NOTEBOOK</dto:type>
+         </dto:productsWS>
+  
+      </dto:ProductWSRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

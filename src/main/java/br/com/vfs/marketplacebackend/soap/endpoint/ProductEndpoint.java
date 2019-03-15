@@ -27,13 +27,12 @@ public class ProductEndpoint {
 
     @PayloadRoot(
             namespace = "dto.soap.marketplacebackend.vfs.com.br",
-            localPart = "ProductRequest")
+            localPart = "ProductWSRequest")
     @ResponsePayload
     public ProductWSResponse addProduct(@RequestPayload ProductWSRequest request) {
-
+        LOGGER.info("Iniciar o processamento de {} produtos ", request.getProductsWS().size());
         request.getProductsWS().parallelStream().forEach(productWS -> productService.upsertProduct(productWS));
-
-        LOGGER.info("chegou o produto"+ request.getProductsWS());
+        LOGGER.info("Finalizado o processamento de {} produtos ", request.getProductsWS().size());
         ProductWSResponse response = new ProductWSResponse();
         response.setStatus(StatusWS.SUCCESS);
         return response;

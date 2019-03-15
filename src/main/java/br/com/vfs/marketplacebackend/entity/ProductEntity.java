@@ -33,7 +33,6 @@ public class ProductEntity {
     @Column(name = "id_product_provider")
     private String idProductProvider;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "id_provider")
     private ProviderEntity provider;
@@ -46,10 +45,8 @@ public class ProductEntity {
     @Size(min=3, max = 2000)
     private String description;
 
-    @NotBlank
     private BigDecimal value;
 
-    @NotBlank
     @ManyToOne
     @JoinColumn(name = "id_product_type")
     private ProductTypeEntity productType;

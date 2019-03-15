@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="0746122d-1a9c-4186-b841-363e9339c12c" activeEnvironment="Default" name="ProductTest" resourceRoot="" soapui-version="5.5.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="78942d44-ebb0-4a3a-a23c-8ec7215e3bee" wsaVersion="NONE" name="ProductPortSoap11" type="wsdl" bindingName="{http://localhost:9000/ws}ProductPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:9000/ws/products/products.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:9000/ws/products/products.wsdl"><con:part><con:url>http://localhost:9000/ws/products/products.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://localhost:9000/ws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="dto.soap.marketplacebackend.vfs.com.br" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost:9000/ws">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="dto.soap.marketplacebackend.vfs.com.br" xmlns:tns="dto.soap.marketplacebackend.vfs.com.br" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="ProductWSRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="productsWS" type="tns:productWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ProductWSResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="status" type="tns:statusWS"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="productWS">
+        <xs:sequence>
+          <xs:element name="id" type="xs:string"/>
+          <xs:element name="auth_provider" type="xs:string"/>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="description" type="xs:string"/>
+          <xs:element name="value" type="xs:decimal"/>
+          <xs:element name="type" type="tns:typeWS"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="typeWS">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NOTEBOOK"/>
+          <xs:enumeration value="DESKTOP"/>
+          <xs:enumeration value="MONITOR"/>
+          <xs:enumeration value="COMPONENTE"/>
+          <xs:enumeration value="PERIFERICO"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="statusWS">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="SUCCESS"/>
+          <xs:enumeration value="ERROR"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ProductWSRequest">
+    <wsdl:part element="sch:ProductWSRequest" name="ProductWSRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProductWSResponse">
+    <wsdl:part element="sch:ProductWSResponse" name="ProductWSResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ProductPort">
+    <wsdl:operation name="ProductWS">
+      <wsdl:input message="tns:ProductWSRequest" name="ProductWSRequest"></wsdl:input>
+      <wsdl:output message="tns:ProductWSResponse" name="ProductWSResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductPortSoap11" type="tns:ProductPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ProductWS">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ProductWSRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ProductWSResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductPortService">
+    <wsdl:port binding="tns:ProductPortSoap11" name="ProductPortSoap11">
+      <soap:address location="http://localhost:9000/ws/products"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:9000/ws/products</con:endpoint></con:endpoints><con:operation id="1d5f7c18-4c7b-4b22-a929-f0a61e8892e6" isOneWay="false" action="" name="ProductWS" bindingOperationName="ProductWS" type="Request-Response" outputName="ProductWSResponse" inputName="ProductWSRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="115dd22e-f23c-4b82-b408-5aa64456c653" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9000/ws/products</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dto="dto.soap.marketplacebackend.vfs.com.br">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <dto:ProductWSRequest>\r
+         <!--1 or more repetitions:-->\r
+         <dto:productsWS>\r
+            <dto:id>1234</dto:id>\r
+            <dto:auth_provider>SAMSUNG</dto:auth_provider>\r
+            <dto:name>MONITOR SAMSUMG 19'</dto:name>\r
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>\r
+            <dto:value>500.00</dto:value>\r
+            <dto:type>MONITOR</dto:type>\r
+         </dto:productsWS>\r
+
+         <dto:productsWS>
+            <dto:id>1235</dto:id>
+            <dto:auth_provider>SAMSUNG</dto:auth_provider>
+            <dto:name>MONITOR SAMSUMG 21'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>700.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         	</dto:productsWS>
+
+         	<dto:productsWS>
+            <dto:id>1237</dto:id>
+            <dto:auth_provider>SAMSUNG</dto:auth_provider>
+            <dto:name>MONITOR SAMSUMG 23'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>850.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         	</dto:productsWS>
+
+        	<dto:productsWS>
+            <dto:id>1238</dto:id>
+            <dto:auth_provider>SAMSUNG</dto:auth_provider>
+            <dto:name>MONITOR SAMSUMG 27'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>1000.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+
+         <dto:productsWS>
+            <dto:id>12iu456</dto:id>
+            <dto:auth_provider>DELL</dto:auth_provider>
+            <dto:name>MONITOR DELL 19'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>550.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+
+         <dto:productsWS>
+            <dto:id>12io34</dto:id>
+            <dto:auth_provider>DELL</dto:auth_provider>
+            <dto:name>MONITOR DELL 21'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>690.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+
+                  <dto:productsWS>
+            <dto:id>123ioad</dto:id>
+            <dto:auth_provider>DELL</dto:auth_provider>
+            <dto:name>MONITOR DELL 23'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>840.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+
+                  <dto:productsWS>
+            <dto:id>123wewr</dto:id>
+            <dto:auth_provider>DELL</dto:auth_provider>
+            <dto:name>MONITOR DELL 27'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>1015.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+
+         <dto:productsWS>
+            <dto:id>127609</dto:id>
+            <dto:auth_provider>LG</dto:auth_provider>
+            <dto:name>MONITOR LG 19'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>450.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+
+         <dto:productsWS>
+            <dto:id>127634a</dto:id>
+            <dto:auth_provider>LG</dto:auth_provider>
+            <dto:name>MONITOR LG 21'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>670.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+
+         <dto:productsWS>
+            <dto:id>983467</dto:id>
+            <dto:auth_provider>LG</dto:auth_provider>
+            <dto:name>MONITOR LG 23'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>940.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+
+         <dto:productsWS>
+            <dto:id>0978tyds</dto:id>
+            <dto:auth_provider>LG</dto:auth_provider>
+            <dto:name>MONITOR LG 27'</dto:name>
+            <dto:description>Com o Eye Saver Mode, recurso que reduz automaticamente a emissão de luzes azuis do monitor, você protege seus olhos da luminosidade que causa cansaço..</dto:description>
+            <dto:value>1115.00</dto:value>
+            <dto:type>MONITOR</dto:type>
+         </dto:productsWS>
+         
+      </dto:ProductWSRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://localhost:9000/ws/ProductPort/ProductWSRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
