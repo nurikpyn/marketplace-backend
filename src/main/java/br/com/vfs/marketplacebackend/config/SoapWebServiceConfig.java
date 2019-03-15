@@ -1,5 +1,6 @@
 package br.com.vfs.marketplacebackend.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,12 @@ import javax.servlet.Servlet;
 @EnableWs
 @Configuration
 public class SoapWebServiceConfig extends WsConfigurerAdapter {
+
+    @Value("${local.host}")
+    private String host;
+    @Value("${local.port}")
+    private String port;
+
     @Bean
     public ServletRegistrationBean<Servlet> messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -30,7 +37,7 @@ public class SoapWebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("ProductPort");
         wsdl11Definition.setLocationUri("/ws/products");
-        wsdl11Definition.setTargetNamespace("http://localhost:9000/ws");
+        wsdl11Definition.setTargetNamespace(String.format("http://%s:%s/ws", host, port));
         wsdl11Definition.setSchema(productsSchema);
         return wsdl11Definition;
     }

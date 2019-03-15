@@ -53,6 +53,7 @@ services:
       - ELASTICSEARCH_HOST=es
       - ELASTICSEARCH_CLUSTER=elasticsearch
       - ELASTICSEARCH_PORT=9300
+      - MY_SERVER_HOST=marketplace-backend
 networks:
   net-backend:
 volumes:
