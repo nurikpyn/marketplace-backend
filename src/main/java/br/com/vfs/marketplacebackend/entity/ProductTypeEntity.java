@@ -55,7 +55,11 @@ public class ProductTypeEntity {
                     .filter(t -> t.name() == type)
                     .findFirst()
                     .orElseThrow(() -> new EnumConstantNotPresentException(ProductType.class, type));
-            return  ProductTypeEntity.builder().id(productType.getCode()).build();
+            return  ProductTypeEntity
+                        .builder()
+                        .id(productType.getCode())
+                        .description(productType.name())
+                        .build();
         }
 
         public Integer getCode() {

@@ -67,6 +67,7 @@ public class ProductServiceImpl {
                     .productType(productEntity.getProductType().getDescription())
                     .name(productEntity.getName())
                     .description(productEntity.getDescription())
+                    .value(productEntity.getValue())
                     .build();
             productESRepository.save(productES);
         } catch (Exception e) {
