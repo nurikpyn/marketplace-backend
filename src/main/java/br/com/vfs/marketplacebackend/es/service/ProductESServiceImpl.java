@@ -22,7 +22,7 @@ public class ProductESServiceImpl {
     }
 
     public List<String> findTop5ByNameIsLike(String name) {
-        return productsESRepository.findTop5ByNameIsLike(name, PageRequest.of(1, 5))
+        return productsESRepository.findTop5ByNameIsLike(name, PageRequest.of(0, 5))
                 .stream()
                 .map(ProductES::getName)
                 .collect(Collectors.toList());
