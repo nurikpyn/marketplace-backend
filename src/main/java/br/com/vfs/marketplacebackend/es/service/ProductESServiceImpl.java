@@ -29,11 +29,13 @@ public class ProductESServiceImpl {
                 .collect(Collectors.toList());
     }
 
+    public Page<ProductES> findProducts(int page, int size) {
+        final PageRequest pageRequest = PageRequest.of(page, size);
+        return productsESRepository.findAll(pageRequest);
+    }
+
     public Page<ProductES> findProducts(int page, int size, String name) {
         final PageRequest pageRequest = PageRequest.of(page, size);
-        if(StringUtils.isEmpty(name) || name.equals("%")){
-            return productsESRepository.findAll(pageRequest);
-        }
         return productsESRepository.findByNameIsLike(name, pageRequest);
     }
 

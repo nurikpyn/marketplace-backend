@@ -7,6 +7,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +47,9 @@ public class ProductResource {
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "name") String name){
         try {
+            if(StringUtils.isEmpty(name) || name.equals("%")){
+                return ResponseEntity.ok(productESService.findProducts(page, size));
+            }
             String nameEncode = URLEncoder.encode(name, "UTF-8");
             return ResponseEntity.ok(productESService.findProducts(page, size, nameEncode));
         } catch (UnsupportedEncodingException e) {
