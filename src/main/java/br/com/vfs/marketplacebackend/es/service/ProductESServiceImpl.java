@@ -31,7 +31,7 @@ public class ProductESServiceImpl {
 
     public Page<ProductES> findProducts(int page, int size, String name) {
         final PageRequest pageRequest = PageRequest.of(page, size);
-        if(StringUtils.isEmpty(name)){
+        if(StringUtils.isEmpty(name) || name.equals("%")){
             return productsESRepository.findAll(pageRequest);
         }
         return productsESRepository.findByNameIsLike(name, pageRequest);
