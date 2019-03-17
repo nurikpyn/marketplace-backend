@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -29,7 +30,11 @@ public class ProductESServiceImpl {
     }
 
     public Page<ProductES> findProducts(int page, int size, String name) {
-        return productsESRepository.findByNameIsLike(name, PageRequest.of(page, size));
+        final PageRequest pageRequest = PageRequest.of(page, size);
+        if(StringUtils.isEmpty(name)){
+            return productsESRepository.findAll(pageRequest);
+        }
+        return productsESRepository.findByNameIsLike(name, pageRequest);
     }
 
     public ProductES add(ProductES build) {
