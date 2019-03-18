@@ -8,29 +8,28 @@
 
 package br.com.vfs.marketplacebackend.soap.dto;
 
-import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java de productWS complex type.
+ * <p>Classe Java de anonymous complex type.
  * 
  * <p>O seguinte fragmento do esquema especifica o conteúdo esperado contido dentro desta classe.
  * 
  * <pre>
- * &lt;complexType name="productWS">
+ * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="provider" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}decimal"/>
- *         &lt;element name="type" type="{dto.soap.marketplacebackend.vfs.com.br}typeWS"/>
+ *         &lt;element name="primary" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}base64Binary"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,28 +39,25 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "productWS", propOrder = {
+@XmlType(name = "", propOrder = {
     "id",
     "provider",
-    "name",
-    "description",
-    "value",
-    "type"
+    "primary",
+    "type",
+    "image"
 })
-public class ProductWS {
+@XmlRootElement(name = "ImageWSRequest")
+public class ImageWSRequest {
 
     @XmlElement(required = true)
     protected String id;
     @XmlElement(required = true)
     protected String provider;
+    protected boolean primary;
     @XmlElement(required = true)
-    protected String name;
+    protected String type;
     @XmlElement(required = true)
-    protected String description;
-    @XmlElement(required = true)
-    protected BigDecimal value;
-    @XmlElement(required = true)
-    protected TypeWS type;
+    protected byte[] image;
 
     /**
      * Obtém o valor da propriedade id.
@@ -112,75 +108,19 @@ public class ProductWS {
     }
 
     /**
-     * Obtém o valor da propriedade name.
+     * Obtém o valor da propriedade primary.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getName() {
-        return name;
+    public boolean isPrimary() {
+        return primary;
     }
 
     /**
-     * Define o valor da propriedade name.
+     * Define o valor da propriedade primary.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setName(String value) {
-        this.name = value;
-    }
-
-    /**
-     * Obtém o valor da propriedade description.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Define o valor da propriedade description.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDescription(String value) {
-        this.description = value;
-    }
-
-    /**
-     * Obtém o valor da propriedade value.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public BigDecimal getValue() {
-        return value;
-    }
-
-    /**
-     * Define o valor da propriedade value.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setPrimary(boolean value) {
+        this.primary = value;
     }
 
     /**
@@ -188,10 +128,10 @@ public class ProductWS {
      * 
      * @return
      *     possible object is
-     *     {@link TypeWS }
+     *     {@link String }
      *     
      */
-    public TypeWS getType() {
+    public String getType() {
         return type;
     }
 
@@ -200,11 +140,33 @@ public class ProductWS {
      * 
      * @param value
      *     allowed object is
-     *     {@link TypeWS }
+     *     {@link String }
      *     
      */
-    public void setType(TypeWS value) {
+    public void setType(String value) {
         this.type = value;
+    }
+
+    /**
+     * Obtém o valor da propriedade image.
+     * 
+     * @return
+     *     possible object is
+     *     byte[]
+     */
+    public byte[] getImage() {
+        return image;
+    }
+
+    /**
+     * Define o valor da propriedade image.
+     * 
+     * @param value
+     *     allowed object is
+     *     byte[]
+     */
+    public void setImage(byte[] value) {
+        this.image = value;
     }
 
 }

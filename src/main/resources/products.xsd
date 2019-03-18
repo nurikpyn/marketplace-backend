@@ -23,13 +23,33 @@
     <xs:complexType name="productWS">
         <xs:sequence>
             <xs:element name="id" type="xs:string"/>
-            <xs:element name="auth_provider" type="xs:string"/>
+            <xs:element name="provider" type="xs:string"/>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="description" type="xs:string"/>
             <xs:element name="value" type="xs:decimal"/>
             <xs:element name="type" type="tns:typeWS"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:element name="ImageWSRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string"/>
+                <xs:element name="provider" type="xs:string"/>
+                <xs:element name="primary" type="xs:boolean"/>
+                <xs:element name="type" type="xs:string"/>
+                <xs:element name="image" type="xs:base64Binary"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ImageWSResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:statusWS"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
     <xs:simpleType name="typeWS">
         <xs:restriction base="xs:string">

@@ -2,6 +2,7 @@ package br.com.vfs.marketplacebackend.service;
 
 import static br.com.vfs.marketplacebackend.entity.ProductTypeEntity.ProductType.createEntity;
 
+import br.com.vfs.marketplacebackend.dto.Image;
 import br.com.vfs.marketplacebackend.entity.ProductEntity;
 import br.com.vfs.marketplacebackend.entity.ProviderEntity;
 import br.com.vfs.marketplacebackend.es.entity.ProductES;
@@ -19,28 +20,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductServiceImpl {
+
     private static final Logger LOGGER =
             LoggerFactory.getLogger(ProductEndpoint.class);
+
     private final ProductRepository productRepository;
+
     private final ProviderRepository providerRepository;
+
     private final ProductESRepository productESRepository;
+
+    private final ImageServiceImpl imageService;
+
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
             final ProviderRepository providerRepository,
-            final ProductESRepository productESRepository) {
+            final ProductESRepository productESRepository,
+            final ImageServiceImpl imageService) {
         this.productRepository = productRepository;
         this.providerRepository = providerRepository;
         this.productESRepository = productESRepository;
+        this.imageService = imageService;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void upsertProduct(ProductWS productWS) {
         try {
-            final ProviderEntity providerEntity = providerRepository.findByName(productWS.getAuthProvider())
+            final ProviderEntity providerEntity = providerRepository.findByName(productWS.getProvider())
                     .orElseThrow(RuntimeException::new);
             ProductEntity productEntity = productRepository
                     .findByIdProductProviderAndProvider(productWS.getId(), providerEntity).orElse(null);
-            if(productEntity == null) {
+            if (productEntity == null) {
                 productEntity = ProductEntity.builder()
                         .idProductProvider(productWS.getId())
                         .name(productWS.getName())
@@ -49,7 +59,7 @@ public class ProductServiceImpl {
                         .value(productWS.getValue())
                         .provider(providerEntity)
                         .build();
-            } else  {
+            } else {
                 productEntity.setName(productWS.getName());
                 productEntity.setDescription(productWS.getDescription());
                 productEntity.setProductType(createEntity(productWS.getType().name()));
@@ -58,7 +68,8 @@ public class ProductServiceImpl {
             productEntity = productRepository.save(productEntity);
 
             //gravar no elastic search
-            final String idES = String.format("%s-%s", productEntity.getIdProductProvider(), productEntity.getProvider().getName());
+            final String idES = String
+                    .format("%s-%s", productEntity.getIdProductProvider(), productEntity.getProvider().getName());
             final ProductES productES = ProductES.builder()
                     .idES(idES)
                     .idDB(productEntity.getId())
@@ -72,10 +83,25 @@ public class ProductServiceImpl {
             productESRepository.save(productES);
         } catch (Exception e) {
             LOGGER.error("Erro ao criar/atualizar um produto! productWS.id = {}, productWS.provider = {}",
-                    productWS.getId(), productWS.getAuthProvider(), e);
+                    productWS.getId(), productWS.getProvider(), e);
             throw e;
         }
 
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveImageProduct(Image image) {
+        final ProductES productES = productESRepository
+                .findByIdProductProviderAndProvider(image.getIdProvider(), image.getProvider())
+                .orElseThrow(RuntimeException::new);
+
+        final String url = imageService.saveBlobFile(image);
+        if(image.isPrimary()){
+            productES.setUrlPrimaryImage(url);
+        } else {
+            productES.getUrlImages().add(url);
+        }
+        productESRepository.save(productES);
     }
 
 }

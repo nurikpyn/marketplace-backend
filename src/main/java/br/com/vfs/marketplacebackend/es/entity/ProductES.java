@@ -1,6 +1,8 @@
 package br.com.vfs.marketplacebackend.es.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,4 +33,7 @@ public class ProductES {
 
     private String productType;
 
+    private String urlPrimaryImage;
+
+    private List<String> urlImages = new ArrayList<>();
 }

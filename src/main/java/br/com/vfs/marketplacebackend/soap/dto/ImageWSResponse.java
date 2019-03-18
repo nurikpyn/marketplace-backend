@@ -38,8 +38,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "status"
 })
-@XmlRootElement(name = "ProductWSResponse")
-public class ProductWSResponse {
+@XmlRootElement(name = "ImageWSResponse")
+public class ImageWSResponse {
 
     @XmlElement(required = true)
     protected StatusWS status;
