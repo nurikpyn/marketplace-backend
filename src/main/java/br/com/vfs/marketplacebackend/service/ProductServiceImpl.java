@@ -4,9 +4,11 @@ import static br.com.vfs.marketplacebackend.entity.ProductTypeEntity.ProductType
 
 import br.com.vfs.marketplacebackend.dto.Image;
 import br.com.vfs.marketplacebackend.entity.ProductEntity;
+import br.com.vfs.marketplacebackend.entity.ProductImageEntity;
 import br.com.vfs.marketplacebackend.entity.ProviderEntity;
 import br.com.vfs.marketplacebackend.es.entity.ProductES;
 import br.com.vfs.marketplacebackend.es.repository.ProductESRepository;
+import br.com.vfs.marketplacebackend.repository.ProductImageRepository;
 import br.com.vfs.marketplacebackend.repository.ProductRepository;
 import br.com.vfs.marketplacebackend.repository.ProviderRepository;
 import br.com.vfs.marketplacebackend.soap.dto.ProductWS;
@@ -28,6 +30,8 @@ public class ProductServiceImpl {
 
     private final ProviderRepository providerRepository;
 
+    private final ProductImageRepository productImageRepository;
+
     private final ProductESRepository productESRepository;
 
     private final ImageServiceImpl imageService;
@@ -35,10 +39,12 @@ public class ProductServiceImpl {
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
             final ProviderRepository providerRepository,
+            final ProductImageRepository productImageRepository,
             final ProductESRepository productESRepository,
             final ImageServiceImpl imageService) {
         this.productRepository = productRepository;
         this.providerRepository = providerRepository;
+        this.productImageRepository = productImageRepository;
         this.productESRepository = productESRepository;
         this.imageService = imageService;
     }
@@ -94,12 +100,19 @@ public class ProductServiceImpl {
         final ProductES productES = productESRepository
                 .findByIdProductProviderAndProvider(image.getIdProvider(), image.getProvider())
                 .orElseThrow(RuntimeException::new);
-
+        final ProductEntity product = productRepository.findById(productES.getIdDB())
+                .orElseThrow(RuntimeException::new);
         final String url = imageService.saveBlobFile(image);
-        if(image.isPrimary()){
+        if (image.isPrimary()) {
             productES.setUrlPrimaryImage(url);
+            product.setPrimaryImageUrl(url);
+            productRepository.save(product);
         } else {
             productES.getUrlImages().add(url);
+            productImageRepository.save(ProductImageEntity.builder()
+                    .product(product)
+                    .url(url)
+                    .build());
         }
         productESRepository.save(productES);
     }
