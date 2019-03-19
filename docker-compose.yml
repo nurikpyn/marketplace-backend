@@ -46,6 +46,7 @@ services:
       - es
     networks:
       - net-backend
+      - net-frontend
     ports:
       - 9000:9000
     environment:
@@ -60,6 +61,7 @@ services:
       - MY_SERVER_HOST=marketplace-backend
 networks:
   net-backend:
+  net-frontend:
 volumes:
   db_data:
   esdata1:
