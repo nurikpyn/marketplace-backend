@@ -1,12 +1,17 @@
 package br.com.vfs.marketplacebackend.resource;
 
+import br.com.vfs.marketplacebackend.dto.Receipt;
+import br.com.vfs.marketplacebackend.dto.Sale;
 import br.com.vfs.marketplacebackend.es.service.ProductESServiceImpl;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import javax.persistence.EntityNotFoundException;
+
+import br.com.vfs.marketplacebackend.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +29,12 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class ProductResource {
 
     private final ProductESServiceImpl productESService;
+    private final ProductServiceImpl productService;
 
     @Autowired
-    public ProductResource(final ProductESServiceImpl productESService) {
+    public ProductResource(final ProductESServiceImpl productESService, ProductServiceImpl productService) {
         this.productESService = productESService;
+        this.productService = productService;
     }
 
     @GetMapping("/public/search")
@@ -68,10 +75,15 @@ public class ProductResource {
     }
 
 
-    @PostMapping("public/add")
-    public ResponseEntity add(@RequestBody String name){
-//        final ProductES productES = productESService.add(ProductES.builder().id(UUID.randomUUID().toString()).name(name).build());
-//        return ResponseEntity.created(URI.create(String.format("/products/%s",productES.getId()))).body(productES);
-        throw new NotImplementedException();
+    @PostMapping("/sale")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity saleProduct(@RequestBody Sale sale){
+        try {
+            return ResponseEntity.ok(productService.saleProduct(sale));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

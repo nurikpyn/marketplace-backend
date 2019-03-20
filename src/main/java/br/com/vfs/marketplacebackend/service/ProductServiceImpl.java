@@ -3,14 +3,14 @@ package br.com.vfs.marketplacebackend.service;
 import static br.com.vfs.marketplacebackend.entity.ProductTypeEntity.ProductType.createEntity;
 
 import br.com.vfs.marketplacebackend.dto.Image;
-import br.com.vfs.marketplacebackend.entity.ProductEntity;
-import br.com.vfs.marketplacebackend.entity.ProductImageEntity;
-import br.com.vfs.marketplacebackend.entity.ProviderEntity;
+import br.com.vfs.marketplacebackend.dto.Receipt;
+import br.com.vfs.marketplacebackend.dto.Sale;
+import br.com.vfs.marketplacebackend.entity.*;
 import br.com.vfs.marketplacebackend.es.entity.ProductES;
+import br.com.vfs.marketplacebackend.es.entity.SaleES;
 import br.com.vfs.marketplacebackend.es.repository.ProductESRepository;
-import br.com.vfs.marketplacebackend.repository.ProductImageRepository;
-import br.com.vfs.marketplacebackend.repository.ProductRepository;
-import br.com.vfs.marketplacebackend.repository.ProviderRepository;
+import br.com.vfs.marketplacebackend.es.service.SaleESServiceImpl;
+import br.com.vfs.marketplacebackend.repository.*;
 import br.com.vfs.marketplacebackend.soap.dto.ProductWS;
 import br.com.vfs.marketplacebackend.soap.endpoint.ProductEndpoint;
 import org.slf4j.Logger;
@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 public class ProductServiceImpl {
@@ -30,23 +32,32 @@ public class ProductServiceImpl {
 
     private final ProviderRepository providerRepository;
 
+    private final UserRepository userRepository;
+
+    private final SaleRepository saleRepository;
+
     private final ProductImageRepository productImageRepository;
 
     private final ProductESRepository productESRepository;
 
     private final ImageServiceImpl imageService;
 
+    private final SaleESServiceImpl saleESService;
+
     @Autowired
     public ProductServiceImpl(final ProductRepository productRepository,
-            final ProviderRepository providerRepository,
-            final ProductImageRepository productImageRepository,
-            final ProductESRepository productESRepository,
-            final ImageServiceImpl imageService) {
+                              final ProviderRepository providerRepository,
+                              UserRepository userRepository, SaleRepository saleRepository, final ProductImageRepository productImageRepository,
+                              final ProductESRepository productESRepository,
+                              final ImageServiceImpl imageService, SaleESServiceImpl saleESService) {
         this.productRepository = productRepository;
         this.providerRepository = providerRepository;
+        this.userRepository = userRepository;
+        this.saleRepository = saleRepository;
         this.productImageRepository = productImageRepository;
         this.productESRepository = productESRepository;
         this.imageService = imageService;
+        this.saleESService = saleESService;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -117,4 +128,22 @@ public class ProductServiceImpl {
         productESRepository.save(productES);
     }
 
+    public Receipt saleProduct(Sale sale) {
+        final UserEntity user = userRepository.findByUsername(sale.getUsername()).orElseThrow(RuntimeException::new);
+        final ProductEntity product = productRepository.findById(sale.getProduct().getIdDB()).orElseThrow(RuntimeException::new);
+
+        final SaleEntity saleEntity = saleRepository.save(SaleEntity.builder()
+                .codReceipt(UUID.randomUUID().toString())
+                .product(product)
+                .user(user)
+                .quantity(sale.getQuantity())
+                .totalValue(sale.getTotalValue())
+                .build());
+
+        final SaleES saleES = saleESService.addSaleES(saleEntity, sale.getProduct());
+
+        return Receipt.builder()
+                .code(saleES.getIdReceipt())
+                .build();
+    }
 }
