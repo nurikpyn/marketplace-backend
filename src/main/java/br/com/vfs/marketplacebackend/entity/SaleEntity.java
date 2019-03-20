@@ -1,5 +1,6 @@
 package br.com.vfs.marketplacebackend.entity;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,4 +43,7 @@ public class SaleEntity {
 
     @Column(name = "total_value")
     private BigDecimal totalValue;
+
+    @Column(name = "date_create")
+    private LocalDateTime dateCreate;
 }
