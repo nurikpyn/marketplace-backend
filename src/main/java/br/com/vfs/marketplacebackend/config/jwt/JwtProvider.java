@@ -1,18 +1,23 @@
 package br.com.vfs.marketplacebackend.config.jwt;
 
+import br.com.vfs.marketplacebackend.dto.TokenJwt;
 import br.com.vfs.marketplacebackend.dto.UserPrinciple;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -60,10 +65,18 @@ public class JwtProvider {
         return false;
     }
 
-    public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser()
+    public TokenJwt getUserNameFromJwtToken(String token) {
+        final Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
-                .getBody().getSubject();
+                .getBody();
+        return TokenJwt.builder()
+                .name(claims.get("name").toString())
+                .userName(claims.getSubject())
+                .authorities(
+                        Arrays.stream(claims.get("role").toString().split(","))
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList()))
+                .build();
     }
 }

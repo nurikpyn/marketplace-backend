@@ -1,5 +1,11 @@
 package br.com.vfs.marketplacebackend.config.jwt;
 
+import br.com.vfs.marketplacebackend.dto.TokenJwt;
+import java.io.IOException;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
@@ -40,10 +40,8 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
         try {
             String jwt = getTokenJwtFromHeader(httpServletRequest);
             if (jwt != null && jwtProvider.validateJwtToken(jwt)) {
-                //TODO avaliar a implementação para usar as roles armazenadas no token
-                String username = jwtProvider.getUserNameFromJwtToken(jwt);
-
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                TokenJwt tokenJwt = jwtProvider.getUserNameFromJwtToken(jwt);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(tokenJwt.getUserName());
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
