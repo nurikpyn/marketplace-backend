@@ -7,6 +7,8 @@ import br.com.vfs.marketplacebackend.es.repository.SaleESRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SaleESServiceImpl {
     private final SaleESRepository saleESRepository;
@@ -24,5 +26,13 @@ public class SaleESServiceImpl {
                 .quantity(saleEntity.getQuantity())
                 .totalValue(saleEntity.getTotalValue())
                 .build());
+    }
+
+    public SaleES findByID(String code) {
+        return saleESRepository.findById(code).orElseThrow(RuntimeException::new);
+    }
+
+    public List<SaleES> findByUserName(String username) {
+        return saleESRepository.findAllByUserName(username);
     }
 }

@@ -1,27 +1,18 @@
 package br.com.vfs.marketplacebackend.resource;
 
-import br.com.vfs.marketplacebackend.dto.Receipt;
 import br.com.vfs.marketplacebackend.dto.Sale;
 import br.com.vfs.marketplacebackend.es.service.ProductESServiceImpl;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import javax.persistence.EntityNotFoundException;
-
 import br.com.vfs.marketplacebackend.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 @CrossOrigin(origins = "*")
 @RestController
