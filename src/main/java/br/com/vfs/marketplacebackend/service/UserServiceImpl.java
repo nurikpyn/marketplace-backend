@@ -10,6 +10,8 @@ import br.com.vfs.marketplacebackend.message.response.JwtResponse;
 import br.com.vfs.marketplacebackend.message.response.ResponseMessage;
 import br.com.vfs.marketplacebackend.repository.RoleRepository;
 import br.com.vfs.marketplacebackend.repository.UserRepository;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +19,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.management.relation.Role;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl {
@@ -53,11 +50,8 @@ public class UserServiceImpl {
         //gerando token
         String jwt = jwtProvider.generateJwtToken(authentication);
         //obtendo UserDetails
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return JwtResponse.builder()
                 .token(jwt)
-                .username(userDetails.getUsername())
-                .authorities(userDetails.getAuthorities())
                 .build();
     }
 
