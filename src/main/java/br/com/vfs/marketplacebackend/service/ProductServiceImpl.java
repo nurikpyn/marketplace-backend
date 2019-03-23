@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -120,7 +122,9 @@ public class ProductServiceImpl {
             product.setPrimaryImageUrl(url);
             productRepository.save(product);
         } else {
-            productES.getUrlImages().add(url);
+            List<String> urls = productES.getUrlImages() == null ? new ArrayList<>() : productES.getUrlImages();
+            urls.add(url);
+            productES.setUrlImages(urls);
             productImageRepository.save(ProductImageEntity.builder()
                     .product(product)
                     .url(url)

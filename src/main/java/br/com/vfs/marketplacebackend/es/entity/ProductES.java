@@ -1,14 +1,14 @@
 package br.com.vfs.marketplacebackend.es.entity;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,6 +34,6 @@ public class ProductES {
     private String productType;
 
     private String urlPrimaryImage;
-    @Builder.Default
-    private List<String> urlImages = new ArrayList<>();
+
+    private List<String> urlImages;
 }
