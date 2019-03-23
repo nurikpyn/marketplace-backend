@@ -13,6 +13,7 @@ import br.com.vfs.marketplacebackend.es.service.SaleESServiceImpl;
 import br.com.vfs.marketplacebackend.repository.*;
 import br.com.vfs.marketplacebackend.soap.dto.ProductWS;
 import br.com.vfs.marketplacebackend.soap.endpoint.ProductEndpoint;
+import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,6 +139,7 @@ public class ProductServiceImpl {
                 .user(user)
                 .quantity(sale.getQuantity())
                 .totalValue(sale.getTotalValue())
+                .dateCreate(LocalDateTime.now())
                 .build());
 
         final SaleES saleES = saleESService.addSaleES(saleEntity, sale.getProduct());

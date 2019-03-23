@@ -29,6 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         );
         return UserPrinciple.builder()
                 .id(user.getId())
+                .name(user.getName())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .email(user.getEmail())

@@ -21,10 +21,11 @@ public class SaleESServiceImpl {
         return saleESRepository.save(SaleES.builder()
                 .idReceipt(saleEntity.getCodReceipt())
                 .idDB(saleEntity.getId())
-                .idProductES(productES.getIdES())
+                .product(productES)
                 .userName(saleEntity.getUser().getUsername())
                 .quantity(saleEntity.getQuantity())
                 .totalValue(saleEntity.getTotalValue())
+                .dateCreate(saleEntity.getDateCreate())
                 .build());
     }
 

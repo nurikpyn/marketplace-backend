@@ -1,5 +1,6 @@
 package br.com.vfs.marketplacebackend.es.entity;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,11 +22,13 @@ public class SaleES {
 
     private Long idDB;
 
-    private String idProductES;
+    private ProductES product;
 
     private String userName;
 
     private Integer quantity;
 
     private BigDecimal totalValue;
+
+    private LocalDateTime dateCreate;
 }

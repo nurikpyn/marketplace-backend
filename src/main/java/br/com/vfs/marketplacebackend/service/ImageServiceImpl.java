@@ -32,7 +32,7 @@ public class ImageServiceImpl {
             // Get a reference to a container. (Name must be lower case.)
             final CloudBlobContainer container = blobClient.getContainerReference(containerName);
             // Get a blob reference for a name file.
-            CloudBlockBlob blob = container.getBlockBlobReference(gerenateName(image));
+            CloudBlockBlob blob = container.getBlockBlobReference(generateName(image));
             blob.uploadFromByteArray(image.getBytes(), 0, image.getBytes().length);
             return blob.getUri().toString();
         }
@@ -41,7 +41,7 @@ public class ImageServiceImpl {
         }
     }
 
-    private String gerenateName(final Image image) {
+    private String generateName(final Image image) {
         return String.format("%s.%s", UUID.randomUUID(), image.getType());
     }
 }
