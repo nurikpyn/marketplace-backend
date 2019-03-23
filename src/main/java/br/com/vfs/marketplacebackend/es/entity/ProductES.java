@@ -34,6 +34,6 @@ public class ProductES {
     private String productType;
 
     private String urlPrimaryImage;
-
+    @Builder.Default
     private List<String> urlImages = new ArrayList<>();
 }
