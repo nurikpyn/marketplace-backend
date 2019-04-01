@@ -34,11 +34,11 @@
 * Efetue o clone do projeto através do comando: ```git clone https://github.com/viniciusufop/marketplace-backend.git```
 * Acesse a pasta marketplace-backend criada.
 * Execute o comando ```docker-compose up -d```
-* O Docker vai subir todos os container do projeto.
+* O Docker vai subir todos os containers do projeto.
 
 ## Estrutura de containers do projeto
 
-  O arquivo docker-compose está configurado para criar as netwoks abaixo:
+  O arquivo docker-compose está configurado para criar as networks abaixo:
 
 * net-backend
 * net-frontend 
